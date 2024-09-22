@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Create Dynamic Table</title>
+</head>
+<body>
+<form action="#" th:action="@{/createTable}" method="post">
+    <label for="tableName">Table Name:</label>
+    <input type="text" id="tableName" name="tableName" /><br/>
+
+    <label for="columns">Columns (name type, comma-separated, e.g., name varchar(255), age int):</label>
+    <input type="text" id="columns" name="columns" /><br/>
+
+    <button type="submit">Create Table</button>
+</form>
+</body>
+</html>
