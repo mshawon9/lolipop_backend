@@ -71,7 +71,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public Optional<ProductEntity> updateProduct(Long id, ProductDto updatedProductData) {
-        return productRepository.findById(id).map(existingProduct -> {
+        return productRepository.findByIdAndDeletedAtIsNull(id).map(existingProduct -> {
 
             // Update fields if they are not null
             if (updatedProductData.getName() != null) {
@@ -158,7 +158,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto getProductById(Long productId) {
-        return productRepository.findById(productId).map(ProductDto::new).orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + productId));
+        return productRepository.findByIdAndDeletedAtIsNull(productId).map(ProductDto::new).orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + productId));
     }
 
     @Override
@@ -171,13 +171,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto getProductBySku(String sku) throws Exception {
-        return productRepository.findBySku(sku).map(ProductDto::new)
+        return productRepository.findBySkuAndDeletedAtIsNull(sku).map(ProductDto::new)
                 .orElseThrow(() -> new  Exception(commonService.generateMessage("Product", sku)));
     }
 
     @Override
     public ProductDto getProductByBarcode(String barcode) throws Exception{
-        return productRepository.findByBarcode(barcode).map(ProductDto::new)
+        return productRepository.findByBarcodeAndDeletedAtIsNull(barcode).map(ProductDto::new)
                 .orElseThrow(() -> new  Exception(commonService.generateMessage("Product", barcode)));
     }
 
@@ -202,7 +202,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String deleteProductById(Long id) {
-        ProductEntity productEntity = productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
+        ProductEntity productEntity = productRepository.findByIdAndDeletedAtIsNull(id).orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
         productEntity.setDeletedAt(LocalDateTime.now());
         productRepository.save(productEntity);
 
