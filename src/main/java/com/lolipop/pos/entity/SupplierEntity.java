@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Data
 public class SupplierEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Min(value = 10, message = "need 10 chars")
     private String name;

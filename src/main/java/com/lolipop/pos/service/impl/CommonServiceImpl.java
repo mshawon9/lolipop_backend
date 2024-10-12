@@ -16,7 +16,7 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public String generateMessage(String entity, String searchParam) {
         return StringUtils.capitalize(entity) +
-                " was found for parameter - " +
+                " was not found for parameter - " +
                 searchParam;
     }
     @Override

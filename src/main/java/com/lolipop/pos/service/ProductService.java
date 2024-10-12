@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import java.util.Optional;
 
 public interface ProductService {
-    ProductDto addProduct(ProductDto product) throws Exception;
+    ProductEntity addProduct(ProductDto product);
     Optional<ProductEntity> updateProduct(Long id, ProductDto product);
 
     ProductDto getProductById(Long productId);
@@ -16,6 +16,10 @@ public interface ProductService {
 
     ProductDto getProductBySku(String sku) throws Exception;
 
+    ProductDto getProductByBarcode(String barcode) throws Exception;
+
     Page<ProductEntity> getProductListPageable(String fromDate, String toDate, String name,
                                                int pageNo, int pageSize, String sortField, String sortDir) throws Exception;
+
+    String deleteProductById(Long id);
 }
